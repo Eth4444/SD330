@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FoxBooks - Page 2</title>
+</head>
+<body>
+    <header>
+        <h1>FoxBooks - Courses</h1>
+        <!-- Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="foxbooks.html">Home Page</a></li>
+                <!-- Add other links here -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div id="courseList">
+        <!-- The fetched data will be displayed here -->
+    </div>
+
+    <footer>
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="foxbooks.html" class="breadcrumbs__link">Homepage</a>
+        <!-- Breadcrumbs or other footer content -->
+    </footer>
+
+    <script>
+        // Fetch data from foxbooks.json
+        fetch('https://eth4444.github.io/SD330//foxbooks.json')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data and update the content
+                const courseListContainer = document.getElementById('courseList');
+
+                // Display course information with individual links
+                data.courses.forEach(course => {
+                    const courseLink = document.createElement('a');
+                    courseLink.href = `course${course.course_id}.html`; // Link to individual course pages
+                    courseLink.innerHTML = `<h2>${course.course_name}</h2>`;
+                    courseListContainer.appendChild(courseLink);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
