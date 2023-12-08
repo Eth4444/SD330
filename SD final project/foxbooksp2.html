@@ -37,23 +37,13 @@
             .then(data => {
                 // Process the data and update the content
                 const courseListContainer = document.getElementById('courseList');
-                
-                // Display course information and associated books
+
+                // Display course information with individual links
                 data.courses.forEach(course => {
-                    const courseInfo = document.createElement('div');
-                    courseInfo.innerHTML = `
-                        <h2>${course.course_name}</h2>
-                        <p>Instructor: ${course.instructor}</p>
-                        <p>Duration: ${course.duration_weeks} weeks</p>
-                        <p>Start Date: ${course.start_date}</p>
-                        <p>Students Enrolled: ${course.students_enrolled}</p>
-                        <p>Description: ${course.description}</p>
-                        <h3>Books:</h3>
-                        <ul>
-                            ${course.books.map(book => `<li>${book.title} by ${book.author}</li>`).join('')}
-                        </ul>
-                    `;
-                    courseListContainer.appendChild(courseInfo);
+                    const courseLink = document.createElement('a');
+                    courseLink.href = `course${course.course_id}.html`; // Link to individual course pages
+                    courseLink.innerHTML = `<h2>${course.course_name}</h2>`;
+                    courseListContainer.appendChild(courseLink);
                 });
             })
             .catch(error => console.error('Error fetching data:', error));
