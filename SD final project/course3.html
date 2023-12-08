@@ -1,0 +1,86 @@
+<!-- course.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FoxBooks - Data Sceince Basics</title>
+</head>
+<body>
+    <header>
+        <h1>FoxBooks - Data Sceince Basics</h1>
+        <!-- Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="foxbooks.html">Home Page</a></li>
+                <!-- Add other links here -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div id="courseDetails">
+        <!-- The fetched course details will be displayed here -->
+    </div>
+    <div id="course-info"></div>
+
+    <footer>
+            <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="foxbooks.html" class="breadcrumbs__link">Homepage</a>
+            <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="foxbooksp2.html" class="breadcrumbs__link">Courses</a>
+        <!-- Breadcrumbs or other footer content -->
+    </footer>
+
+    <script>
+        // Function to fetch and display course information
+        async function displayCourseInformation() {
+            try {
+                // Fetch JSON data
+                const response = await fetch('https://eth4444.github.io/SD330//foxbooks.json');
+                const data = await response.json();
+
+                // Extract information for Course 3
+                const course3 = data.courses.find(course => course.course_id === 3);
+
+                // Generate HTML content
+                const htmlContent = `
+                    <h2>Course ${course3.course_id}: ${course3.course_name}</h2>
+                    <p><strong>Course ID:</strong> ${course3.course_id}</p>
+                    <p><strong>Course Name:</strong> ${course3.course_name}</p>
+                    <p><strong>Instructor:</strong> ${course3.instructor}</p>
+                    <p><strong>Duration (weeks):</strong> ${course3.duration_weeks}</p>
+                    <p><strong>Start Date:</strong> ${course3.start_date}</p>
+                    <p><strong>Students Enrolled:</strong> ${course3.students_enrolled}</p>
+                    <p><strong>Description:</strong> ${course3.description}</p>
+
+                    <h3>Books:</h3>
+                    <ul>
+                        ${course3.books.map(book => `
+                            <li>
+                                <p><strong>Book ID:</strong> ${book.book_id}</p>
+                                <p><strong>Title:</strong> ${book.title}</p>
+                                <p><strong>Author:</strong> ${book.author}</p>
+                                <p><strong>Published Date:</strong> ${book.published_date}</p>
+                                <p><strong>ISBN:</strong> ${book.isbn}</p>
+                                <p><strong>Edition:</strong> ${book.edition}</p>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+
+                // Display HTML content
+                document.getElementById('course-info').innerHTML = htmlContent;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Call the function to display course information
+        displayCourseInformation();
+    </script>
+</body>
+</html>
